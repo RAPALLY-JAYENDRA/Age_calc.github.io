@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Age Calculator</title>
+  
+</head>
+<body>
+  <h1>Age Calculator</h1>
+  <label for="dob">Enter your date of birth:</label>
+  <input type="date" id="dob"><br><br>
+  <button onclick="calculateAge()">Calculate Age</button>
+  <p id="result"></p>
+  
+ 
+
+
+
+<style>
+body{
+    background-color: rgb(239, 233, 239);
+    margin-block-start: auto;
+    margin:black;
+    padding:20px;
+}
+h1{
+    text-align:center;
+}
+.color-change {
+  animation: colorChange 2s infinite;
+}
+button{
+    color:rgb(15, 2, 14);
+    background-color: rgb(156, 53, 140);
+    
+}
+button.color-change{
+  color:blue;
+}
+@keyframes colorChange {
+  0% { color: blue; }
+  50% { color: red; }
+  100% { color: green; }
+}
+</style>
+
+
+
+<script>
+    document.getElementById('age-form').addEventListener('submit', function(event) {
+    event.preventDefault();
+    const dobInput = document.getElementById('dob').value;
+    const dob = new Date(dobInput);
+    const today = new Date();
+
+    const ageInMilliseconds = today - dob;
+    const ageInSeconds = ageInMilliseconds / 1000;
+    const ageInMinutes = ageInSeconds / 60;
+    const ageInHours = ageInMinutes / 60;
+    const ageInDays = ageInHours / 24;
+    const ageInMonths = (today.getFullYear() - dob.getFullYear()) * 12 + (today.getMonth() - dob.getMonth());
+    const ageInYears = today.getFullYear() - dob.getFullYear();
+
+    const daysInMonth = new Date(today.getFullYear(), today.getMonth() + 1, 0).getDate();
+    const remainingDays = Math.floor(ageInDays % daysInMonth);
+    const remainingMonths = Math.floor(ageInMonths % 12);
+
+    const ageResult = document.getElementById('age-result');
+    ageResult.innerHTML = `
+        <h2>Your Age</h2>
+        <table>
+            <tr>
+                <td>Years:</td>
+                <td>${ageInYears}</td>
+            </tr>
+            <tr>
+                <td>Months:</td>
+                <td>${remainingMonths}</td>
+            </tr>
+            <tr>
+                <td>Days:</td>
+                <td>${remainingDays}</td>
+            </tr>
+        </table>
+    `;
+});
+
+
+    function calculateAge() {
+  var dob = document.getElementById("dob").value;
+  var today = new Date();
+  var birthDate = new Date(dob);
+  var age = today.getFullYear() - birthDate.getFullYear();
+  var monthDiff = today.getMonth() - birthDate.getMonth();
+  if (monthDiff < 0 || (monthDiff === 0 && today.getDate() < birthDate.getDate())) {
+    age--;
+  }
+  var resultElement = document.getElementById("result");
+  resultElement.innerHTML = "Your age is: " + age + " 😄🎉🎈🌟🎂🎁";
+  resultElement.classList.add("color-change");
+  button.add("color-change");
+}
+</script>
+</body>
+</html>
